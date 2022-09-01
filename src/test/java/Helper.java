@@ -28,8 +28,6 @@ public class Helper {
 
     public static final String JPG = ".jpg";
 
-
-
     public static WebDriver setProperty(){
         System.setProperty(CHROMEKEY,CHROMEPATH);
         return new ChromeDriver();

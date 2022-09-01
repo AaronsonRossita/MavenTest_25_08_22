@@ -1,6 +1,7 @@
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
+import org.checkerframework.checker.units.qual.C;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.opera.OperaDriver;
@@ -142,9 +143,34 @@ public class ProjectTest {
         WebDriver driver = Helper.setProperty();
         driver.get(Helper.SAUCE);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        WebElement usernameField =
-                wait.until(ExpectedConditions.presenceOfElementLocated(By.id(Helper.USERNAMEFIELD)));
+//        WebElement usernameField =
+//                wait.until(ExpectedConditions.presenceOfElementLocated(By.id(Helper.USERNAMEFIELD)));
+//        WebElement usernameField = driver.findElement(By.cssSelector("#user-name"));
+//        WebElement usernameField = driver.findElement(By.xpath("//*[@id=\"user-name\"]"));
+        WebElement usernameField = driver.findElement(By.name("user-name"));
         usernameField.sendKeys("found it");
-        driver.quit();
+        //driver.quit();
     }
+
+    @Test
+    public static void testNine() throws InterruptedException {
+        WebDriver driver = new ChromeDriver();
+        driver.get(Helper.SAUCE);
+        String firstWindow = driver.getWindowHandle();
+//        WebDriver driverTwo = new ChromeDriver();
+//        driverTwo.get(Helper.GOOGLE);
+        driver.switchTo().newWindow(WindowType.WINDOW);
+        driver.get(Helper.GOOGLE);
+        String secondWindow = driver.getWindowHandle();
+        Thread.sleep(3000);
+        driver.switchTo().window(firstWindow);
+        driver.get(Helper.GOOGLE);
+        driver.close();
+
+    }
+
+
+
+
+
 }
