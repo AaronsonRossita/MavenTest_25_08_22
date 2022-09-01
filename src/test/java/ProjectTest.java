@@ -4,11 +4,14 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.opera.OperaDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 
 public class ProjectTest {
 
@@ -22,7 +25,7 @@ public class ProjectTest {
     @Test
     public static void testOne(){
 //        System.setProperty(Helper.CHROMEKEY,Helper.CHROMEPATH);
-        WebDriver driver = new ChromeDriver();
+        WebDriver driver = Helper.setProperty();
         driver.close();
     }
 
@@ -116,5 +119,32 @@ public class ProjectTest {
 
     }
 
+    @Test
+    public static void testSeven() throws IOException {
+        WebDriver driver = new ChromeDriver();
+        for (int i = 0; i < Helper.USERS.length; i++) {
+            driver.get(Helper.SAUCE);
+            WebElement usernameField = driver.findElement(By.id(Helper.USERNAMEFIELD));
+            WebElement passwordField = driver.findElement(By.id(Helper.PASSWORDFIELD));
+            WebElement loginBtn = driver.findElement(By.id(Helper.LOGINBTN));
+            usernameField.sendKeys(Helper.USERS[i]);
+            passwordField.sendKeys(Helper.PASSWORD);
+            loginBtn.click();
+            File path = new File(Helper.FOLDER1 + (i+1) + Helper.JPG);
+            File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+            FileUtils.copyFile(screenshot,path);
+        }
+        driver.quit();
+    }
 
+    @Test
+    public static void testEight(){
+        WebDriver driver = Helper.setProperty();
+        driver.get(Helper.SAUCE);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebElement usernameField =
+                wait.until(ExpectedConditions.presenceOfElementLocated(By.id(Helper.USERNAMEFIELD)));
+        usernameField.sendKeys("found it");
+        driver.quit();
+    }
 }

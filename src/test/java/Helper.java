@@ -1,3 +1,6 @@
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
 public class Helper {
 
     public static final String CHROMEKEY = "webdriver.chrome.driver";
@@ -13,10 +16,23 @@ public class Helper {
 
     public static final String STANDART = "standard_user";
     public static final String LOCKED = "locked_out_user";
+    public static final String PROBLEM = "problem_user";
+
+    public static final String[] USERS = {STANDART,LOCKED,PROBLEM};
 
 
     public static final String PASSWORD = "secret_sauce";
 
     public static final String FOLDER = "C:\\Users\\User\\Desktop\\Screenshots\\";
+    public static final String FOLDER1 = "C:\\Users\\User\\Desktop\\123\\";
+
+    public static final String JPG = ".jpg";
+
+
+
+    public static WebDriver setProperty(){
+        System.setProperty(CHROMEKEY,CHROMEPATH);
+        return new ChromeDriver();
+    }
 
 }
