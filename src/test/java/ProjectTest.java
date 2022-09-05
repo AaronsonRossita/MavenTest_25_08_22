@@ -6,6 +6,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -147,7 +149,11 @@ public class ProjectTest {
 //                wait.until(ExpectedConditions.presenceOfElementLocated(By.id(Helper.USERNAMEFIELD)));
 //        WebElement usernameField = driver.findElement(By.cssSelector("#user-name"));
 //        WebElement usernameField = driver.findElement(By.xpath("//*[@id=\"user-name\"]"));
+//        WebElement usernameField =
+                driver.findElement(By.xpath("/html/body/div/div/div[2]/div[1]/div[1]/div/form/div[1]/input"));
+
         WebElement usernameField = driver.findElement(By.name("user-name"));
+//        WebElement usernameField = driver.findElement(By.);
         usernameField.sendKeys("found it");
         //driver.quit();
     }
@@ -157,6 +163,7 @@ public class ProjectTest {
         WebDriver driver = new ChromeDriver();
         driver.get(Helper.SAUCE);
         String firstWindow = driver.getWindowHandle();
+//        System.out.println(firstWindow);
 //        WebDriver driverTwo = new ChromeDriver();
 //        driverTwo.get(Helper.GOOGLE);
         driver.switchTo().newWindow(WindowType.WINDOW);
@@ -166,10 +173,60 @@ public class ProjectTest {
         driver.switchTo().window(firstWindow);
         driver.get(Helper.GOOGLE);
         driver.close();
-
     }
 
+    @Test
+    public static void testTen() throws InterruptedException {
+        WebDriver driver = new ChromeDriver();
+        driver.get(Helper.HERO);
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("Checkboxes"))).click();
+        if (driver.getCurrentUrl().equals(Helper.HEROCHECKBOXES)){
+            System.out.println("----------right URL-----------");
+            WebElement checkbox1 =
+                    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"checkboxes\"]/input[1]")));
+            WebElement checkbox2 =
+                    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"checkboxes\"]/input[2]")));
+            Thread.sleep(3000);
+            checkbox1.click();
+            checkbox2.click();
+            Thread.sleep(3000);
+            checkbox1.click();
+            checkbox2.click();
+            System.out.println("checkbox1 is selected = " + checkbox1.isSelected());
+            System.out.println("checkbox2 is selected = " + checkbox2.isSelected());
+        }else{
+            System.out.println("wrong URL");
+        }
+    }
 
+    @Test
+    public static void testEleven(){
+        WebDriver driver = new ChromeDriver();
+        driver.get(Helper.SAUCE);
+
+        System.out.println(driver.getTitle());
+
+        WebElement acceptedText = driver.findElement(By.xpath("//*[@id=\"login_credentials\"]/h4"));
+        String text = acceptedText.getText();
+        System.out.println(text);
+
+        System.out.println(driver.findElement(By.xpath("//*[@id=\"login_credentials\"]/h4")).getText());
+    }
+
+    @Test
+    public static void testTwelve() throws InterruptedException {
+        WebDriver driver = new ChromeDriver();
+        driver.get(Helper.BASICCALC);
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(Helper.NUMBER1FIELD))).sendKeys("3");
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(Helper.NUMBER2FIELD))).sendKeys("2");
+        Select dropdown = new Select(driver.findElement(By.id(Helper.DROPDOWN)));
+        dropdown.selectByValue("0");
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(Helper.CAlCBTN))).click();
+        WebElement resultField = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(Helper.RESULTFIELD)));
+        System.out.println("this is the result: " + resultField.getAttribute("value"));
+    }
 
 
 

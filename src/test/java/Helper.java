@@ -8,6 +8,17 @@ public class Helper {
     public static final String GOOGLE = "https://www.google.com/";
     public static final String GITHUB = "https://github.com/";
     public static final String SAUCE = "https://www.saucedemo.com/";
+    public static final String HERO = "https://the-internet.herokuapp.com/";
+    public static final String HERODROPDOWN = "https://the-internet.herokuapp.com/dropdown";
+    public static final String HEROCHECKBOXES = "https://the-internet.herokuapp.com/checkboxes";
+
+    public static final String BASICCALC = "https://testsheepnz.github.io/BasicCalculator.html";
+    public static final String NUMBER1FIELD = "number1Field";
+    public static final String NUMBER2FIELD = "number2Field";
+    public static final String DROPDOWN = "selectOperationDropdown";
+    public static final String CAlCBTN = "calculateButton";
+    public static final String RESULTFIELD = "numberAnswerField";
+
 
 
     public static final String USERNAMEFIELD = "user-name";
